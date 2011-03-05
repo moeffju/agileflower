@@ -12,8 +12,7 @@ a canvas.  Hack on the code and there might be a prize for the best one.  :)
 
     $ gem install bundler  # Install bundler
     $ bundle install       # Install the rest of the necessary gems
-    $ vi main.rv           # Add your Twitter account information to the
-top of the file.
+    $ vi main.rv           # Add your Twitter account information to the top of the file.
 
 ## Usage
 
@@ -23,7 +22,7 @@ good to go.
 
     $ ruby main.rb         # Start the server on port 4000
 
-Now, just connect to http://localhost:4000 and it should start the whole thing off.  The index.html file gets downloaded
+Now, fire up your copy of Chrome or Safari and hit the url http://localhost:4000.  The index.html file gets downloaded
 to your browser and it starts the connection to the WebSockets server.
 
 
