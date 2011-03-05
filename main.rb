@@ -125,7 +125,7 @@ EventMachine.run do
   end
   
   # Open the WebSocket and start accepting connections
-  EventMachine::WebSocket.start(:host => UDPSocket.open {|s| s.connect(LOCAL_IP, 1); s.addr.last }, :port => 8080, :debug => true) do |ws|
+  EventMachine::WebSocket.start(:host => UDPSocket.open {|s| s.connect(SERVER_IP, 1); s.addr.last }, :port => 8080, :debug => true) do |ws|
     sid = ""
     ws.onopen {
       sid = @channel.subscribe{ |msg| ws.send msg }
