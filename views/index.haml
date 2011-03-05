@@ -1,0 +1,22 @@
+!!! 5
+
+%html
+	%head
+		%title Twitter Visualization
+		%link(rel="stylesheet" type="text/css" href="css/tweets.css")
+		%link#ws-server-url{:href => @ws_server_url}
+
+	%body
+		#header
+
+		#container
+			#tweets
+				%ul#tweet
+			%img#fleur{:src => "/img/fluer-de-lis.png"}
+			%img#logo{:src => "/img/cp.png"}
+			#primary
+			#terms
+
+		%script{:src => "/js/jquery-1.4.4.min.js"}
+		%script{:src => "/js/json2.js"}
+		%script{:src => "/js/tweets.js"}

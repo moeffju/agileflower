@@ -1,0 +1,39 @@
+body{ 
+	background: #000;/* url('/img/pgBg.jpg') no-repeat center top fixed;*/
+	margin:0;
+}
+#container{
+	width:98%;
+	overflow:hidden;
+	margin: 0 auto;
+	padding:0;
+}
+.twittList{
+	text-align:center;
+	width: 300px;
+	height:200px;
+	overflow: hidden;
+	padding: 2px 4px;
+	display: none;
+	position: absolute;
+}
+img{
+	margin: 5px;
+}
+.fleft{
+	float: left;
+}
+p, a { 
+	font-size: 22px;
+	font-family: Helvetica, arial, sans-serif;
+	font-weight:bold;
+}
+
+#fleur, #logo {position:absolute;}
+#logo {bottom:20px;right:20px;z-index:9999;}
+#primary {padding:10px;width:98%;position:absolute;top:0;left:0;text-align:center;color:#fff;background:#000;}
+#primary img {float:left;height:58px;width:58px;}
+#primary p {font-size:25px;}
+#terms {padding:10px;width:98%;position:absolute;bottom:0;left:0;text-align:left;color:#fff;background:#000;}
+#terms p {font-size:22px;text-align:center;}
+#terms p span {color:#58A618;}
