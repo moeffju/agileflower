@@ -1,39 +1,47 @@
-body{ 
-	background: #000;/* url('/img/pgBg.jpg') no-repeat center top fixed;*/
-	margin:0;
-}
-#container{
-	width:98%;
-	overflow:hidden;
-	margin: 0 auto;
-	padding:0;
-}
-.twittList{
-	text-align:center;
-	width: 300px;
-	height:200px;
-	overflow: hidden;
-	padding: 2px 4px;
-	display: none;
+* { margin: 0; padding: 0; }
+body { overflow: hidden; }
+#wall {
+	background: #fff;
+	-webkit-column-gap: 0;
+	top: 0; left: 0;
 	position: absolute;
+	z-index: -99px;
 }
-img{
-	margin: 5px;
-}
-.fleft{
+#wall img {
+	border: 0;
 	float: left;
+	height: 48px;
+	width: 48px;
+	z-index: -98;
 }
-p, a { 
-	font-size: 22px;
-	font-family: Helvetica, arial, sans-serif;
-	font-weight:bold;
+#primary {
+	background: #333;
+	bottom: 170px;
+	box-shadow: 0 0 15px 5px #000;
+	color: #fff;
+	font-family: monospace;
+	height: 48px;
+	left: 0;
+	padding-left: 68px;
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	z-index: 99;
 }
-
-#fleur, #logo {position:absolute;}
-#logo {bottom:20px;right:20px;z-index:9999;}
-#primary {padding:10px;width:98%;position:absolute;top:0;left:0;text-align:center;color:#fff;background:#000;}
-#primary img {float:left;height:58px;width:58px;}
-#primary p {font-size:25px;}
-#terms {padding:10px;width:98%;position:absolute;bottom:0;left:0;text-align:left;color:#fff;background:#000;}
-#terms p {font-size:22px;text-align:center;}
-#terms p span {color:#58A618;}
+#primary img {
+	left: 10px;
+	position: absolute;
+	top: 0;
+}
+#primary h2, #primary p {
+	display: inline;
+	font-size: 14px;
+	line-height: 48px;
+}
+#fleur, #logo {
+	bottom: 10px;
+	position: absolute;
+	z-index: 99;
+}
+#fleur { height: 148px; left: 10px; }
+#logo { right: 10px; }
