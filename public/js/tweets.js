@@ -2,10 +2,12 @@ $(function() {
   var PIC_SIZE = 48;
   var PIC_DEFAULT = 'http://a0.twimg.com/sticky/default_profile_images/default_profile_0_bigger.png';
   
+  /*
   if (!window.WebSocket){
       $('body').empty();
     alert('This page requires Websocket support. Please use Chrome or Safari.');
   }
+  */
 
   window.console = console || {
     log: function() { },
