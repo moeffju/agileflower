@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/moeffju/twitter-text-rb.git
+  revision: 4590eddfbc343835e7a2918c6dd575dc549a3a44
+  branch: ruby_192_compat
+  specs:
+    twitter-text (1.4.7)
+      actionpack
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -78,8 +86,6 @@ GEM
       eventmachine (>= 0.12.6)
       rack (>= 1.0.0)
     tilt (1.1)
-    twitter-text (1.4.8)
-      actionpack
     tzinfo (0.3.23)
 
 PLATFORMS
@@ -98,4 +104,4 @@ DEPENDENCIES
   sinatra
   sqlite3-ruby
   thin
-  twitter-text
+  twitter-text!

@@ -1,7 +1,6 @@
 #!/usr/bin/env ruby
 require "rubygems"
-require "bundler"
-Bundler.setup(:default)
+require "bundler/setup"
 
 require "em-websocket"
 require 'em-http-request'
@@ -15,6 +14,7 @@ require "json"
 require "haml"
 require "sass"
 require "compass"
+require 'twitter-text'
 
 require './lib/utilities'
 require './lib/twitterstream'
@@ -59,6 +59,14 @@ class Tweet < ActiveRecord::Base
   scope :background,  where(:primary => false)
 end
 
+module ActionView::Helpers
+  module TagHelper
+    def tag_options
+      ""
+    end
+  end
+end
+
 EventMachine.run do
   class App < Sinatra::Base
     set :app_file, __FILE__
@@ -73,6 +81,9 @@ EventMachine.run do
     end    
 
     configure do
+      mime_type :ttf, "application/octet-stream"
+      mime_type :woff, "application/font-woff"
+
       Compass.add_project_configuration(File.join(File.dirname(__FILE__), 'config', 'compass.rb'))
 
       set :haml, { :format => :html5 }
@@ -115,6 +126,7 @@ EventMachine.run do
       res = JSON.parse(record.data)
       res[:primary] = record.primary?
       res[:terms] = record.terms
+      res[:parsed_text] = Twitter::Autolink.auto_link(record[:text])
 
       @channel.push res.to_json
       record.processed = true
@@ -133,6 +145,7 @@ EventMachine.run do
         res = JSON.parse(record.data)
         res[:primary] = record.primary?
         res[:terms] = record.terms
+        res[:parsed_text] = Twitter::Autolink.auto_link(record[:text])
         ws.send res.to_json
       end
     }

@@ -40,7 +40,7 @@ $(function() {
     var img = $('<img alt="@' + screen_name + '" title="@' + screen_name + '" src="' + profile_image_url + '" />').error(function() {
       $(this).unbind('error').attr('src', PIC_DEFAULT);
     })
-    var text = $('<p>' + data['text'] + '</p>');
+    var text = $('<p>' + data['parsed_text'] + '</p>');
     var date = new Date(data['created_at']);
     var meta = $('<div class="meta"><a href="https://twitter.com/'+data['user']['screen_name']+'" class="username">'+data['user']['name']+'</a> um <a href="http://twitter.com/'+data['user']['screen_name']+'/status/'+data['id_str']+'" class="permalink">'+[1900+date.getYear(),'-',pad(date.getMonth()+1, 2),'-',pad(date.getDate(),2),' ',date.getHours(),':',pad(date.getMinutes(),2),':',pad(date.getSeconds(), 2)].join('')+'</a></div>');
     
