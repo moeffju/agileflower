@@ -1,0 +1,197 @@
+$blueprint-grid-columns: 12;
+$blueprint-grid-width: 60px;
+$blueprint-grid-margin: 20px;
+$grid-background-column-width: 60px;
+$grid-background-gutter-width: 20px;
+$grid-background-baseline-height: 20px;
+$base-font-size: 16px;
+$base-line-height: 20px;
+$width: $blueprint-grid-columns * ($blueprint-grid-width + $blueprint-grid-margin) - $blueprint-grid-margin;
+$wrapper-width: $width + 60px;
+
+$darkblue: #072338;
+$blue: #99def7;
+$border-blue: mix($blue, $darkblue, 60%);
+$font-color: $blue;
+$link-color: darken($blue, 10%);
+$link-visited-color: $link-color;
+$header-color: $blue;
+
+@import "compass";
+@import "compass/layout";
+@import "blueprint";
+@import "blueprint/interaction";
+@import "compass/layout/grid-background";
+@import "compass/typography/vertical_rhythm";
+
+@import "fonts";
+@import "icon/*.png";
+
+@include blueprint-typography;
+@include blueprint-interaction;
+@include establish-baseline;
+
+//* { outline: 1px solid rgba($blue,0.3);}
+//#wrapper { @include grid-background; }
+html,body { padding: 0; margin: 0; }
+body {
+  background: #737c82 url(/images/blueprint-tile.png);
+}
+h1,h2,h3 {
+  font-family: CenturyGothic;
+  font-weight: normal;
+}
+h2 {
+  font-size: 18px;
+}
+h3 {
+  font-size: 16px;
+  margin-top: 24px;
+}
+ul, li {
+  list-style: none;
+  padding: 0;
+}
+address {
+  font-style: normal;
+}
+#userbar, #footer {
+  position: fixed;
+  z-index: 10;
+  width: 100%;
+  background: black;
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+  font-size: 12px;
+  line-height: 18px;
+  .w {
+    width: $width;
+    padding: 5px 0;
+    margin: 0 auto;
+  }
+  @include single-box-shadow(#333, 0, 0, 30px, 0px, false);
+}
+#userbar {
+  top: 0;
+  .w {
+    text-align: right;
+  }
+  .u {
+    display: inline;
+    .a {
+      display: inline;
+      img {
+        height: 16px;
+        margin: 0;
+        padding: 0;
+        vertical-align: -4px;
+      }
+      margin-right: 4px;
+    }
+    .nc {
+      display: inline;
+      margin-right: 4px;
+    }
+  }
+}
+#footer {
+  bottom: 0;
+  .w {
+    text-align: center;
+  }
+}
+#wrapper {
+  //position: relative;
+  width: $wrapper-width;
+  margin: 20px auto;
+}
+#container {
+  @include container;
+}
+#header {
+  height: 72px;
+  margin-bottom: 8px;
+  h1 {
+    position: absolute;
+    top: 8px;
+    left: 0px;
+    margin: 0;
+    padding: 0;
+    width: 419px;
+    height: 150px;
+    background: url(/images/logo.png) no-repeat -17px 0px;
+    @include hide-text;
+    a {
+      display: block;
+      width: 419px;
+      height: 135px;
+    }
+  }
+}
+#nav {
+  ul {
+    @include horizontal-list;
+    border-bottom: 1px solid $border-blue;
+    padding-left: 6px;
+    position: relative;
+    top: -2px;
+    li, li:first-child, li:last-child {
+      position: relative;
+      top: 1px;
+      border: 1px solid $border-blue;
+      padding: 0 6px;
+      margin-right: 6px;
+      a {
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+      }
+      &:hover {
+        padding: 0 7px;
+        background: $blue;
+        padding-bottom: 2px;
+        border: none;
+        a {
+          color: $darkblue;
+        }
+      }
+    }
+  }
+}
+h1,h2,h3 {
+  small {
+    margin: 0 0 0 6px;
+    font-size: 13px;
+    line-height: 11px;
+  }
+}
+.copy {
+  @include column(6);
+}
+
+.tweet-holder {
+  @include clearfix;
+  margin: 32px 0;
+  img {
+    display: inline;
+    float: left;
+    margin-right: 32px;
+    width: 96px;
+    height: 96px;
+  }
+  .tweet {
+    display: inline;
+    float: left;
+    width: 812px;
+    margin-right: 0;
+    p {
+      font-size: 28px;
+      line-height: 36px;
+      margin-bottom: 0;
+    }
+    .meta {
+      a {
+      }
+    }
+  }
+}

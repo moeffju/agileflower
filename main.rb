@@ -12,6 +12,9 @@ require "haml"
 require "active_record"
 require "sqlite3"
 require "json"
+require "haml"
+require "sass"
+require "compass"
 
 require './lib/utilities'
 require './lib/twitterstream'
@@ -23,12 +26,9 @@ require './lib/twitterstream'
 LOCAL_IP        = Utilities.local_ip    # IP Address of the server
 FILE_IP         = File.exists?("./server.ip") ? File.open("./server.ip", "r").read.chomp : nil
 SERVER_IP       = FILE_IP || LOCAL_IP   # IP Address of the server
-USERID          = "userid1"             # Primary Twitter user id
-USERID2         = "userid2"             # Seconday Twitter user id
-PASSWORD        = "password1"           # Primary Twitter password
-PASSWORD2       = "password2"           # Secondary Twitter password
-PRIMARY_TERMS   = "cpl11,codepalousa"   # Search term(s) to track (comma seperated)
-SECONDARY_TERMS = "jquery,ruby,rails,csharp,perl,sql,dotnet,webdev,javascript"
+USERID          = "agiledesigncamp"             # Primary Twitter user id
+PASSWORD        = "PASSWORD"           # Primary Twitter password
+PRIMARY_TERMS   = "adc11,agiledesigncamp"   # Search term(s) to track (comma seperated)
 PUSH_TIMER      = 0.7                   # Number of seconds to wait before pushing data to the clients
 CLEANUP_TIMER   = 10_800                # Number of seconds to wait before cleaning up DB data
 PRESEED         = 200                   # Number of old records to send to each new client
@@ -59,9 +59,10 @@ class Tweet < ActiveRecord::Base
   scope :background,  where(:primary => false)
 end
 
-
 EventMachine.run do
   class App < Sinatra::Base
+    set :app_file, __FILE__
+    set :root, File.dirname(__FILE__)
     set :static, true
     set :public, "public"
     set :views,  "views"
@@ -71,6 +72,18 @@ EventMachine.run do
       @ws_server_url = "ws://#{SERVER_IP}:8080"
     end    
 
+    configure do
+      Compass.add_project_configuration(File.join(File.dirname(__FILE__), 'config', 'compass.rb'))
+
+      set :haml, { :format => :html5 }
+      set :sass, Compass.sass_engine_options
+    end
+
+    get '/css/:name.css' do
+      content_type 'text/css', :charset => 'utf-8'
+      scss(:"css/#{params[:name]}", Compass.sass_engine_options )
+    end
+
     # main
     get "/" do
       haml :index
@@ -78,8 +91,7 @@ EventMachine.run do
   end
 
   # Open the feed to the Twitter stream(s)
-  primary_stream    = TwitterStream.new(USERID, PASSWORD, PRIMARY_TERMS)
-  secondary_stream  = TwitterStream.new(USERID2, PASSWORD2, SECONDARY_TERMS)
+  primary_stream = TwitterStream.new(USERID, PASSWORD, PRIMARY_TERMS)
 
   # Process the primary tweets
   primary_stream.ontweet { |raw|
@@ -94,20 +106,6 @@ EventMachine.run do
     end
   }
   
-  # Process the secondary tweets
-  secondary_stream.ontweet { |raw|
-    begin
-      tweet = JSON.parse(raw)['text']
-
-      Tweet.create :text => tweet, :data => raw, :primary => false, :terms => SECONDARY_TERMS
-
-      puts "New secondary tweet: #{tweet}"
-    rescue Exception => ex
-      puts "[#{Time.now}] Something bad happened in the secondary data loop : #{ex}"
-    end
-  }
-
-
   @channel = EM::Channel.new
 
   # Push the data to any connected machines
